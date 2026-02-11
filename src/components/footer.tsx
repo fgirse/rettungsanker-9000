@@ -2,7 +2,7 @@ import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
 import { cn } from '@/lib/utils'
 import LogoNeu from '../../public/Assets/Img/LogoNeu.png'
-import Lighthouse from '../../public/Assets/Img/Lighthouse3.png'
+import Lighthouse from '../../public/Assets/Img/lighthouse3.png'
 import Waves from '@/components/waves'
 
 interface Footer12Props {
