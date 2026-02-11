@@ -386,9 +386,15 @@ const GithubStars = ({ repoUrl }: GithubStarsProps) => {
     const getStars = async () => {
       try {
         const response = await fetch(githubApiEndpoint)
-        const json = await response.json()
-        const formattedCount = formatStargazers(json.stargazers_count)
-        setStargazersCount(formattedCount)
+        if (!response.ok) {
+          throw new Error(`GitHub API error: ${response.status}`)
+        }
+        const text = await response.text()
+        if (text) {
+          const json = JSON.parse(text)
+          const formattedCount = formatStargazers(json.stargazers_count)
+          setStargazersCount(formattedCount)
+        }
       } catch (error: unknown) {
         if (error instanceof Error) {
           console.error(error.message)

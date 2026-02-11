@@ -42,7 +42,7 @@ export default function AboutClient({ about }) {
             </div>
           )}
 
-          <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:text-[3.0rem] font-sans text-justify">
+          <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:leading-12 lg:text-[3.0rem] font-sans text-justify">
             <RichText data={about.content_about} />
           </div>
 

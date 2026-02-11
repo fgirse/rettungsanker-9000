@@ -27,8 +27,14 @@ export default function MarqueeCooperateComp() {
       try {
         const response = await fetch('/api/partners')
         if (response.ok) {
-          const data = await response.json()
-          setPartners(data.partners || [])
+          const text = await response.text()
+          if (text) {
+            const data = JSON.parse(text)
+            console.log('Fetched partners:', data.partners)
+            setPartners(data.partners || [])
+          }
+        } else {
+          console.error('Failed to fetch partners, status:', response.status)
         }
       } catch (error) {
         console.error('Failed to fetch partners:', error)
@@ -45,7 +51,7 @@ export default function MarqueeCooperateComp() {
     return (
       <div className="w-full overflow-hidden flex flex-col items-center">
         <div className="py-8 opacity-0">
-          <div className="mr-36">
+          <div className="">
             <div style={{ width: 240, height: 80 }} />
           </div>
         </div>
@@ -58,13 +64,13 @@ export default function MarqueeCooperateComp() {
     return (
       <div className="w-full overflow-hidden flex flex-col items-center">
         <Marquee fade={true} pauseOnHover={true} className="py-8">
-          <div className="mr-36">
+          <div className="">
             <Image src="/Assets/Img/LogoNeu.png" alt="LogoNeu" width={240} height={80} />
           </div>
-          <div className="mr-36">
+          <div className="">
             <Image src="/Assets/Svg/LogoFlens2.svg" alt="LogoFlens" width={240} height={80} />
           </div>
-          <div className="mr-36">
+          <div className="">
             <Image src="/Assets/Img/Astra.webp" alt="LogoAstra" width={240} height={80} />
           </div>
         </Marquee>
@@ -73,21 +79,27 @@ export default function MarqueeCooperateComp() {
   }
 
   return (
-    <div className=" w-full overflow-hidden">
+    <div className="w-full overflow-hidden">
       <Marquee fade={true} pauseOnHover={true} className="py-8">
         {partners.map((partner, index) => {
           const logo = partner.logo as Media
           const logoUrl = typeof partner.logo === 'string' ? `/media/${partner.logo}` : logo?.url
 
-          if (!logoUrl) return null
+          if (!logoUrl) {
+            console.warn('No logo URL for partner:', partner.name)
+            return null
+          }
+
+          console.log('Rendering partner:', partner.name, 'URL:', logoUrl)
 
           return (
-            <div key={index} className="mr-36">
+            <div key={index} className="mx-8 flex items-center">
               <Image
                 src={logoUrl}
                 alt={partner.name || 'Partner logo'}
                 width={partner.width || 240}
                 height={partner.height || 80}
+                style={{ width: 'auto', height: '80px' }}
               />
             </div>
           )
