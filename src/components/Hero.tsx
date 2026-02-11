@@ -37,31 +37,33 @@ export default async function HeroSection() {
   const backgroundImageMobile = hero?.backgroundImageMobile as Media | undefined
   const logoAlt = hero?.LogoAlt as Media | undefined
 
-  // Ensure URLs are absolute paths
-  const getImageUrl = (url: string | null | undefined) => {
-    if (!url) return ''
-    // If URL is relative, ensure it starts with /
-    return url.startsWith('http') ? url : url.startsWith('/') ? url : `/${url}`
-  }
-
-  const desktopBgUrl = getImageUrl(backgroundImageDesktop?.url)
-  const mobileBgUrl = getImageUrl(backgroundImageMobile?.url)
-
   return (
     <>
       <div className="hero-section">
         {/* Background Images */}
-        {desktopBgUrl && (
-          <div
-            className="hero-background hero-background-desktop"
-            style={{ backgroundImage: `url('${desktopBgUrl}')` }}
-          />
+        {backgroundImageDesktop?.url && (
+          <div className="hero-background hero-background-desktop">
+            <Image
+              src={backgroundImageDesktop.url}
+              alt={backgroundImageDesktop.alt || 'Hero background'}
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'center' }}
+              priority
+              quality={100}
+            />
+          </div>
         )}
-        {mobileBgUrl && (
-          <div
-            className="hero-background hero-background-mobile"
-            style={{ backgroundImage: `url('${mobileBgUrl}')` }}
-          />
+        {backgroundImageMobile?.url && (
+          <div className="hero-background hero-background-mobile">
+            <Image
+              src={backgroundImageMobile.url}
+              alt={backgroundImageMobile.alt || 'Hero background mobile'}
+              fill
+              style={{ objectFit: 'contain', objectPosition: 'center' }}
+              priority
+              quality={100}
+            />
+          </div>
         )}
 
         {/* Hero Content */}
