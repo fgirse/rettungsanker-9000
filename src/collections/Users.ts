@@ -8,6 +8,15 @@ export const Users: CollectionConfig = {
   },
   fields: [
     {
+      name: 'name',
+      type: 'text',
+    },
+    {
+      name: 'emailVerified',
+      type: 'checkbox',
+      defaultValue: false,
+    },
+    {
       name: 'role',
       type: 'select',
       options: ['admin', 'editor'],
