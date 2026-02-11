@@ -28,7 +28,7 @@ export default async function HeroSection() {
     return (
       <div className="hero-section" style={{ padding: '40px', textAlign: 'center' }}>
         <h1>Hero content not found</h1>
-        <p>Please create a page with slug "home" in the Payload admin panel</p>
+        <p>Please create a page with slug home in the Payload admin panel</p>
       </div>
     )
   }
