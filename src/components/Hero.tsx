@@ -6,7 +6,7 @@ import config from '@/payload.config'
 import type { Media, Page } from '@/payload-types'
 import '@/app/(frontend)/styles.css'
 import ProductOfTheMonth from '@/components/productOfTheMonth'
-import Marquee from '@/components/MarqueeCooperateComp';
+import Marquee from '@/components/MarqueeCooperateComp'
 
 export default async function HeroSection() {
   const payloadConfig = await config
@@ -37,20 +37,30 @@ export default async function HeroSection() {
   const backgroundImageMobile = hero?.backgroundImageMobile as Media | undefined
   const logoAlt = hero?.LogoAlt as Media | undefined
 
+  // Ensure URLs are absolute paths
+  const getImageUrl = (url: string | null | undefined) => {
+    if (!url) return ''
+    // If URL is relative, ensure it starts with /
+    return url.startsWith('http') ? url : url.startsWith('/') ? url : `/${url}`
+  }
+
+  const desktopBgUrl = getImageUrl(backgroundImageDesktop?.url)
+  const mobileBgUrl = getImageUrl(backgroundImageMobile?.url)
+
   return (
     <>
       <div className="hero-section">
         {/* Background Images */}
-        {backgroundImageDesktop?.url && (
+        {desktopBgUrl && (
           <div
             className="hero-background hero-background-desktop"
-            style={{ backgroundImage: `url(${backgroundImageDesktop.url})` }}
+            style={{ backgroundImage: `url('${desktopBgUrl}')` }}
           />
         )}
-        {backgroundImageMobile?.url && (
+        {mobileBgUrl && (
           <div
             className="hero-background hero-background-mobile"
-            style={{ backgroundImage: `url(${backgroundImageMobile.url})` }}
+            style={{ backgroundImage: `url('${mobileBgUrl}')` }}
           />
         )}
 
@@ -81,9 +91,6 @@ export default async function HeroSection() {
         <div className="mt-[40vh] lg:mt-[40vh]">
           <ProductOfTheMonth />
         </div>
-        
-          
-        
       </div>
       <Marquee />
     </>
