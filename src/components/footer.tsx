@@ -1,6 +1,5 @@
 import { ArrowUpRight } from 'lucide-react'
 import Image from 'next/image'
-import Logo from '../../public/Assets/Img/LogoAlt.png'
 import { cn } from '@/lib/utils'
 import LogoNeu from '../../public/Assets/Img/LogoNeu.png'
 import Lighthouse from '../../public/Assets/Img/Lighthouse3.png'
