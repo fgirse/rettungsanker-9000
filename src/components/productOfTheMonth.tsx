@@ -1,0 +1,83 @@
+import { Badge } from '@/components/ui/badge'
+import Image from 'next/image'
+import { getProductOfTheMonth } from '@/globals/product-of-the-month/queries'
+
+export default async function ProductOfTheMonth() {
+  const productOfTheMonth = await getProductOfTheMonth()
+
+  // Handle both string ID and media object for image
+  let productImage: string | null = null
+
+  if (productOfTheMonth?.image) {
+    if (typeof productOfTheMonth.image === 'string') {
+      // If image is just an ID string, construct a generic media URL
+      productImage = `/media/flensburger-dunkel.webp` // Fallback to known file
+    } else {
+      // If image is a media object, use url or construct from filename
+      productImage =
+        productOfTheMonth.image.url ||
+        (productOfTheMonth.image.filename ? `/media/${productOfTheMonth.image.filename}` : null)
+    }
+  }
+
+  // Don't render if not active or no image
+  if (!productOfTheMonth?.isActive || !productImage) {
+    return null
+  }
+
+  return (
+    <>
+      {/* Product of the Month Section */}
+      <div className="absolute top-[40vh] md:top-[45vh] lg:top-48 lg:left-12 -rotate-12 max-w-2xl lg:mt-12 lg:w-full lg:max-w-4xl z-10">
+        <div className="relative md:overflow-hidden rounded-2xl bg-linear-to-br from-lime-300/10 to-lime-500/70 lg:from-lime-300 lg:to-lime-500/70 lg:bg-linear-to-b backdrop-blur-sm border border-amber-500/20 p-8 shadow-2xl">
+          <div className="grid md:grid-cols-2 gap-8 items-center">
+            {/* Image Section */}
+            <div className="relative  h-60 md:h-80 rounded-xl overflow-hidden group">
+              <Image
+                src={productImage}
+                alt={productOfTheMonth.title || 'Product of the Month'}
+                fill
+                className="object-contain transition-transform duration-500 group-hover:scale-150"
+              />
+              {productOfTheMonth.badge && (
+                <div className="absolute top-4 right-4">
+                  <Badge className="bg-red-600 text-white px-4 py-1.5 text-sm font-bold">
+                    {productOfTheMonth.badge}
+                  </Badge>
+                </div>
+              )}
+            </div>
+
+            {/* Content Section */}
+            <div className="space-y-4 text-left">
+              <div className="space-y-2">
+                {productOfTheMonth.subtitle && (
+                  <p className=" text-yellow-600 ProductoftheMonth headingA font-medium uppercase tracking-wider">
+                    {productOfTheMonth.subtitle}
+                  </p>
+                )}
+                <h3 className="font-sans uppercase text-6xl md:text-[10vw] lg:text-[10vw] font-black text-white">
+                  {productOfTheMonth.title}
+                </h3>
+              </div>
+
+              {productOfTheMonth.description && (
+                <p className="font-sans text-amber-50  text-xl  lg:text-4xl leading-relaxed">
+                  {productOfTheMonth.description}
+                </p>
+              )}
+
+              {productOfTheMonth.price && (
+                <div className="flex items-baseline gap-2">
+                  <span className="text-2xl font-bold text-amber-400 lg:text-6xl">
+                    {productOfTheMonth.price}
+                  </span>
+                </div>
+              )}
+            </div>
+          </div>
+        </div>
+      </div>
+    </>
+  )
+}
