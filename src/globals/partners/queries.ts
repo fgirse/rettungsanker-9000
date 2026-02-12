@@ -7,7 +7,7 @@ export async function getPartners() {
   try {
     const partners = await payload.findGlobal({
       slug: 'partners',
-      depth: 1,
+      depth: 2, // Ensure media relationship is fully populated
     })
 
     return partners
