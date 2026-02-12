@@ -64,13 +64,13 @@ export default function MarqueeCooperateComp() {
     return (
       <div className="w-full overflow-hidden flex flex-col items-center">
         <Marquee fade={true} pauseOnHover={true} className="py-8">
-          <div className="">
+          <div className="mr-6">
             <Image src="/Assets/Img/LogoNeu.png" alt="LogoNeu" width={240} height={80} />
           </div>
-          <div className="">
-            <Image src="/Assets/Svg/LogoFlens2.svg" alt="LogoFlens" width={240} height={80} />
+          <div className="mr-6">
+            <Image src="/Assets/Svg/LogoFlens.svg" alt="LogoFlens" width={240} height={80} />
           </div>
-          <div className="">
+          <div className="mr-6">
             <Image src="/Assets/Img/Astra.webp" alt="LogoAstra" width={240} height={80} />
           </div>
         </Marquee>
@@ -79,7 +79,7 @@ export default function MarqueeCooperateComp() {
   }
 
   return (
-    <div className="w-full overflow-hidden">
+    <div className="mb-20 w-full overflow-hidden">
       <Marquee fade={true} pauseOnHover={true} className="py-8">
         {partners.map((partner, index) => {
           const logo = partner.logo as Media
