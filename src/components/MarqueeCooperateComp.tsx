@@ -97,7 +97,7 @@ export default function MarqueeCooperateComp() {
           console.log('Rendering partner:', partner.name, 'URL:', logoUrl)
 
           return (
-            <div key={index} className="mx-8 flex items-center">
+            <div key={index} className="mb-20 mx-8 flex items-center">
               <Image
                 src={logoUrl}
                 alt={partner.name || 'Partner logo'}
