@@ -1,5 +1,5 @@
 import HeroSection from '@/components/Hero'
-import MarqueeCooperateComp from '@/components/MarqueeCooperateComp'
+import Marquee from '@/components/Marquee';
 import About from '@/components/About'
 import Photogallery from '@/components/PhotoGallery'
 import Bento from "@/components/GridLayout3";
@@ -10,7 +10,7 @@ export default function Home() {
   return (
     <>
       <HeroSection />
-      <MarqueeCooperateComp/>
+      <Marquee/>
         <About />
         <Bento/>
         <Photogallery />

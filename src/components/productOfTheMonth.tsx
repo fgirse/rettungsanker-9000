@@ -56,7 +56,7 @@ export default async function ProductOfTheMonth() {
                     {productOfTheMonth.subtitle}
                   </p>
                 )}
-                <h3 className="font-sans uppercase text-6xl md:text-[10vw] lg:text-[10vw] font-black text-white">
+                <h3 className="font-sans uppercase text-6xl md:text-[10vw] lg:text-[2vw] font-black text-white">
                   {productOfTheMonth.title}
                 </h3>
               </div>
