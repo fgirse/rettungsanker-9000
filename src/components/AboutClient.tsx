@@ -6,13 +6,18 @@ import styles from '@/styles'
 import { fadeIn, staggerContainer } from '../utils/motion'
 import { TypingText } from './CustomTexts'
 import { RichText } from '@payloadcms/richtext-lexical/react'
+import type { About as AboutType } from '@/payload-types'
 
-export default function AboutClient({ about }) {
+interface AboutClientProps {
+  about: AboutType
+}
+
+export default function AboutClient({ about }: AboutClientProps) {
   return (
-    <section id="section-about" className={`${styles.paddings} relative z-10 mt-12`} name="hashid">
+    <section id="section-about" className={`${styles.paddings} relative z-10 mt-12`}>
       <div className="gradient-02 z-0"></div>
       <motion.div
-        variants={staggerContainer}
+        variants={staggerContainer() as any}
         initial="hidden"
         whileInView="show"
         viewport={{ once: false, amount: 0.25 }}
@@ -24,16 +29,16 @@ export default function AboutClient({ about }) {
         />
 
         <motion.div
-          variants={fadeIn('up', 'tween', 0.2, 1)}
+          variants={fadeIn('up', 'tween', 0.2, 1) as any}
           className="mt-2 font-normal sm:text-[32px] text-[20px] text-center text-gray-500"
         >
           <p className="font-sans text-[2.5rem] md:text-[3rem] lg:text-[7.0rem] font-extrabold text-yellow-500 text-center">
             {about.title_about}
           </p>
-          {about.image__title_about && (
+          {about.image__title_about && typeof about.image__title_about !== 'string' && (
             <div className="w-36 h-36 md:w-[20vw] lg:w[20vh]">
               <Image
-                src={about.image__title_about.url}
+                src={about.image__title_about.url || ''}
                 height={320}
                 width={230}
                 alt={about.image__title_about.alt || 'Leuchtturm'}
@@ -46,10 +51,10 @@ export default function AboutClient({ about }) {
             <RichText data={about.content_about} />
           </div>
 
-          {about.image_about && (
+          {about.image_about && typeof about.image_about !== 'string' && (
             <div className="flex flex-row justify-center items-center gap-x-5">
               <Image
-                src={about.image_about.url}
+                src={about.image_about.url || ''}
                 height={80}
                 width={60}
                 alt={about.image_about.alt || 'Portrait Michael Schreck'}
@@ -84,7 +89,7 @@ export default function AboutClient({ about }) {
         </div>
         <p className="text-yellow-500 text-center">scrolling down</p>
         <motion.img
-          variants={fadeIn('up', 'tween', 0.3, 1)}
+          variants={fadeIn('up', 'tween', 0.3, 1) as any}
           src="/Assets/Img/arrow-down.svg"
           alt="arrow down"
           className="w-4.5 h-7 object-contain mt-7"
