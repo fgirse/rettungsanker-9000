@@ -83,9 +83,13 @@ export default function MarqueeCooperateComp() {
       <Marquee fade={true} pauseOnHover={true} className="py-8">
         {partners.map((partner, index) => {
           const logo = partner.logo as Media
-          const logoUrl = typeof partner.logo === 'string' ? `/media/${partner.logo}` : logo?.url
+          let logoUrl: string
 
-          if (!logoUrl) {
+          if (typeof partner.logo === 'string') {
+            logoUrl = partner.logo.startsWith('/') ? partner.logo : `/media/${partner.logo}`
+          } else if (logo?.url) {
+            logoUrl = logo.url
+          } else {
             console.warn('No logo URL for partner:', partner.name)
             return null
           }
@@ -100,6 +104,7 @@ export default function MarqueeCooperateComp() {
                 width={partner.width || 240}
                 height={partner.height || 80}
                 style={{ width: 'auto', height: '80px' }}
+                unoptimized={logoUrl.endsWith('.svg')}
               />
             </div>
           )
