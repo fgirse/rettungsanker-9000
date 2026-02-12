@@ -54,9 +54,7 @@ export default function MarqueeCooperateComp() {
     return (
       <div className="w-full overflow-hidden flex flex-col items-center">
         <div className="py-8 opacity-0">
-          <div className="">
-            <div style={{ width: 240, height: 80 }} />
-          </div>
+          <div style={{ width: 240, height: 80 }} />
         </div>
       </div>
     )
