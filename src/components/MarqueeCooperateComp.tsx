@@ -5,9 +5,9 @@ import '@devnomic/marquee/dist/index.css'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import type { Media } from '@/payload-types'
-import LogoNeu from '../../public/Assets/Svg/image1.svg'
-import LogoFlens from '../../public/Assets/Svg/LogoFlens2.svg'
-import LogoAstra from '../../public/Assets/Svg/AstraLogo.svg'
+import LogoFlens from '../../public/Assets/Svg/LogoFlens.svg'
+import LogoNeu from '../../public/Assets/Img/LogoNeu.png'
+import LogoAstra from '../../public/Assets/Svg/Astra_Logo.svg'
 
 interface Partner {
   name?: string
@@ -63,25 +63,25 @@ export default function MarqueeCooperateComp() {
   // Fallback to static images if no partners in CMS
   if (partners.length === 0) {
     return (
-      <div className="w-full overflow-hidden flex flex-col items-center">
-        <Marquee fade={true} pauseOnHover={true} className="py-8">
-          <div className="mr-6">
-            <Image src={LogoNeu} alt="LogoNeu" width={240} height={80} />
+      <Marquee fade={true}>
+        <section className="mt-[64vh] md:mt-[40vh] lg:mt-[19vh] flex items-center justify-center">
+          <div className="mr-36 py-32 ">
+            <Image src={LogoNeu} alt="LogoNeu" width={150} height={80} />
           </div>
-          <div className="mr-6">
-            <Image src={LogoFlens} alt="LogoFlens" width={240} height={80} />
+          <div className="mr-36 mt-2 ">
+            <Image src={LogoFlens} alt="LogoFlens" width={250} height={100} />
           </div>
-          <div className="mr-6">
-            <Image src={LogoAstra} alt="LogoAstra" width={240} height={80} />
+          <div className="mr-36 ">
+            <Image src={LogoAstra} alt="LogoAstra" width={150} height={80} />
           </div>
-        </Marquee>
-      </div>
+        </section>
+      </Marquee>
     )
   }
 
   return (
-    <div className="mb-20 w-full overflow-hidden">
-      <Marquee fade={true} pauseOnHover={true} className="py-8">
+    <Marquee fade={true}>
+      <section className="mt-[64vh] md:mt-[40vh] lg:mt-[19vh] flex items-center justify-center">
         {partners.map((partner, index) => {
           const logo = partner.logo as Media
           let logoUrl: string
@@ -104,11 +104,11 @@ export default function MarqueeCooperateComp() {
           console.log('Rendering partner:', partner.name, 'URL:', logoUrl)
 
           return (
-            <div key={index} className="mb-20 mx-8 flex items-center">
+            <div key={index} className="mr-36 py-32">
               <Image
                 src={logoUrl}
                 alt={partner.name || 'Partner logo'}
-                width={partner.width || 240}
+                width={partner.width || 150}
                 height={partner.height || 80}
                 style={{ width: 'auto', height: '80px' }}
                 unoptimized={logoUrl.endsWith('.svg')}
@@ -119,7 +119,7 @@ export default function MarqueeCooperateComp() {
             </div>
           )
         })}
-      </Marquee>
-    </div>
+      </section>
+    </Marquee>
   )
 }
