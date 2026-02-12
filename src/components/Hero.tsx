@@ -1,7 +1,7 @@
 import React from 'react'
 import Image from 'next/image'
 import LogoNeu from '../../public/Assets/Img/LogoAlt.png';
-import Marquee from '@/components/MarqueeCooperateComp';
+//import Marquee from '@/components/MarqueeCooperateComp';
 import ProductOfTheMonth from '@/components/productOfTheMonth';
 
 function Hero() {
@@ -17,9 +17,7 @@ function Hero() {
       <div className=' flex flex-col items-center justify-center'>
         <ProductOfTheMonth/>
       </div>
-      <div className="relative flex flex-col items-center justify-center top-[55vw] md:top-[46vw] lg:top-[0vw]">
-      <Marquee />
-      </div>
+      
     </section>
   )
 }
