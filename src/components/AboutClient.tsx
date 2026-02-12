@@ -37,46 +37,74 @@ export default function AboutClient({ about }: AboutClientProps) {
           </p>
           {about.image__title_about &&
             typeof about.image__title_about !== 'string' &&
-            about.image__title_about.url && (
-              <div className="w-36 h-36 md:w-[20vw] lg:w[20vh]">
-                <Image
-                  src={about.image__title_about.url}
-                  height={320}
-                  width={230}
-                  alt={about.image__title_about.alt || 'Leuchtturm'}
-                  className="shape-lighthouse h-54 w-60"
-                  unoptimized={about.image__title_about.url.endsWith('.svg')}
-                  onError={(e) => {
-                    console.error('Title image failed to load:', about.image__title_about.url, e)
-                  }}
-                />
-              </div>
-            )}
+            about.image__title_about.url &&
+            (() => {
+              let imageUrl = about.image__title_about.url
+              // Extract just the path from full URL if needed
+              try {
+                const url = new URL(
+                  imageUrl,
+                  typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000',
+                )
+                imageUrl = url.pathname
+              } catch {}
+
+              return (
+                <div className="w-36 h-36 md:w-[20vw] lg:w[20vh]">
+                  <Image
+                    src={imageUrl}
+                    height={320}
+                    width={230}
+                    alt={about.image__title_about.alt || 'Leuchtturm'}
+                    className="shape-lighthouse h-54 w-60"
+                    unoptimized={imageUrl.endsWith('.svg')}
+                    onError={(e) => {
+                      console.error('Title image failed to load:', imageUrl, e)
+                    }}
+                  />
+                </div>
+              )
+            })()}
 
           <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:leading-12 lg:text-[3.0rem] font-sans text-justify">
             <RichText data={about.content_about} />
           </div>
 
-          {about.image_about && typeof about.image_about !== 'string' && about.image_about.url && (
-            <div className="flex flex-row justify-center items-center gap-x-5">
-              <Image
-                src={about.image_about.url}
-                height={80}
-                width={60}
-                alt={about.image_about.alt || 'Portrait Michael Schreck'}
-                className="mt-5 rounded-full portraitMick"
-                unoptimized={about.image_about.url.endsWith('.svg')}
-                onError={(e) => {
-                  console.error('Portrait image failed to load:', about.image_about.url, e)
-                }}
-              />
-              <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem]">
-                Michael Schreck <br />
-                und
-                <br /> das Team des Rettungsankers
-              </p>
-            </div>
-          )}
+          {about.image_about &&
+            typeof about.image_about !== 'string' &&
+            about.image_about.url &&
+            (() => {
+              let imageUrl = about.image_about.url
+              // Extract just the path from full URL if needed
+              try {
+                const url = new URL(
+                  imageUrl,
+                  typeof window !== 'undefined' ? window.location.origin : 'http://localhost:3000',
+                )
+                imageUrl = url.pathname
+              } catch {}
+
+              return (
+                <div className="flex flex-row justify-center items-center gap-x-5">
+                  <Image
+                    src={imageUrl}
+                    height={80}
+                    width={60}
+                    alt={about.image_about.alt || 'Portrait Michael Schreck'}
+                    className="mt-5 rounded-full portraitMick"
+                    unoptimized={imageUrl.endsWith('.svg')}
+                    onError={(e) => {
+                      console.error('Portrait image failed to load:', imageUrl, e)
+                    }}
+                  />
+                  <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem]">
+                    Michael Schreck <br />
+                    und
+                    <br /> das Team des Rettungsankers
+                  </p>
+                </div>
+              )
+            })()}
         </motion.div>
         <div className="flex flex-col items-center justify-center">
           <button

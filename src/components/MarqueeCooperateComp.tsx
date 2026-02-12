@@ -91,7 +91,13 @@ export default function MarqueeCooperateComp() {
           if (typeof partner.logo === 'string') {
             logoUrl = partner.logo.startsWith('/') ? partner.logo : `/media/${partner.logo}`
           } else if (logo?.url) {
-            logoUrl = logo.url
+            // Extract just the path from full URL if needed
+            try {
+              const url = new URL(logo.url, window.location.origin)
+              logoUrl = url.pathname
+            } catch {
+              logoUrl = logo.url
+            }
           } else {
             console.warn('No logo URL for partner:', partner.name)
             return null
