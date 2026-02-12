@@ -21,7 +21,6 @@ const nextConfig = {
       },
     ],
     domains: ['localhost', '127.0.0.1'],
-    unoptimized: process.env.NODE_ENV === 'development',
   },
   async rewrites() {
     return [

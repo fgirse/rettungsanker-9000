@@ -116,7 +116,7 @@ export default function MarqueeCooperateComp() {
                 width={partner.width || 150}
                 height={partner.height || 80}
                 style={{ width: 'auto', height: '80px' }}
-                unoptimized={logoUrl.endsWith('.svg')}
+                unoptimized
                 onError={(e) => {
                   console.error('Image failed to load for', partner.name, ':', logoUrl, e)
                 }}
