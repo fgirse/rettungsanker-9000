@@ -5,6 +5,9 @@ import '@devnomic/marquee/dist/index.css'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import type { Media } from '@/payload-types'
+import LogoNeu from '../../public/Assets/Svg/image1.svg';
+import LogoFlens from '../../public/Assets/Svg/LogoFlens2.svg';
+import LogoAstra from '../../public/Assets/Svg/AstraLogo.svg';
 
 interface Partner {
   name?: string
@@ -65,13 +68,13 @@ export default function MarqueeCooperateComp() {
       <div className="w-full overflow-hidden flex flex-col items-center">
         <Marquee fade={true} pauseOnHover={true} className="py-8">
           <div className="mr-6">
-            <Image src="/Assets/Img/LogoNeu.png" alt="LogoNeu" width={240} height={80} />
+            <Image src={LogoNeu} alt="LogoNeu" width={240} height={80} />
           </div>
           <div className="mr-6">
-            <Image src="/Assets/Svg/LogoFlens.svg" alt="LogoFlens" width={240} height={80} />
+            <Image src={LogoFlens} alt="LogoFlens" width={240} height={80} />
           </div>
           <div className="mr-6">
-            <Image src="/Assets/Img/Astra.webp" alt="LogoAstra" width={240} height={80} />
+            <Image src={LogoAstra} alt="LogoAstra" width={240} height={80} />
           </div>
         </Marquee>
       </div>
