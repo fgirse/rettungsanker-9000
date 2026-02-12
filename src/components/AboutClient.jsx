@@ -5,7 +5,7 @@ import Image from "next/image";
 import styles from "@/styles"
 import { fadeIn, staggerContainer } from "../utils/motion";
 import { TypingText } from "./CustomTexts";
-import Lighthouse from "@/public/Assets/Img/lighthouse3.png";
+import Lighthouse from "../../public/Assets/Img/lighthouse3.png";
 import { RichText } from '@payloadcms/richtext-lexical/react';
 
 export default function AboutClient({ about }) {
