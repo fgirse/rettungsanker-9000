@@ -46,6 +46,9 @@ export default function AboutClient({ about }: AboutClientProps) {
                   alt={about.image__title_about.alt || 'Leuchtturm'}
                   className="shape-lighthouse h-54 w-60"
                   unoptimized={about.image__title_about.url.endsWith('.svg')}
+                  onError={(e) => {
+                    console.error('Title image failed to load:', about.image__title_about.url, e)
+                  }}
                 />
               </div>
             )}
@@ -63,6 +66,9 @@ export default function AboutClient({ about }: AboutClientProps) {
                 alt={about.image_about.alt || 'Portrait Michael Schreck'}
                 className="mt-5 rounded-full portraitMick"
                 unoptimized={about.image_about.url.endsWith('.svg')}
+                onError={(e) => {
+                  console.error('Portrait image failed to load:', about.image_about.url, e)
+                }}
               />
               <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem]">
                 Michael Schreck <br />

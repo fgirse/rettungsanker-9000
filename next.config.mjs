@@ -12,8 +12,24 @@ const nextConfig = {
       {
         protocol: 'http',
         hostname: 'localhost',
+        port: '3000',
+      },
+      {
+        protocol: 'http',
+        hostname: '127.0.0.1',
+        port: '3000',
       },
     ],
+    domains: ['localhost', '127.0.0.1'],
+    unoptimized: process.env.NODE_ENV === 'development',
+  },
+  async rewrites() {
+    return [
+      {
+        source: '/media/:path*',
+        destination: '/media/:path*',
+      },
+    ]
   },
   webpack: (webpackConfig, { isServer }) => {
     webpackConfig.resolve.extensionAlias = {

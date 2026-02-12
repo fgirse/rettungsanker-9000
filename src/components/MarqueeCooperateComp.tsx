@@ -5,9 +5,9 @@ import '@devnomic/marquee/dist/index.css'
 import Image from 'next/image'
 import { useEffect, useState } from 'react'
 import type { Media } from '@/payload-types'
-import LogoNeu from '../../public/Assets/Svg/image1.svg';
-import LogoFlens from '../../public/Assets/Svg/LogoFlens2.svg';
-import LogoAstra from '../../public/Assets/Svg/AstraLogo.svg';
+import LogoNeu from '../../public/Assets/Svg/image1.svg'
+import LogoFlens from '../../public/Assets/Svg/LogoFlens2.svg'
+import LogoAstra from '../../public/Assets/Svg/AstraLogo.svg'
 
 interface Partner {
   name?: string
@@ -108,6 +108,9 @@ export default function MarqueeCooperateComp() {
                 height={partner.height || 80}
                 style={{ width: 'auto', height: '80px' }}
                 unoptimized={logoUrl.endsWith('.svg')}
+                onError={(e) => {
+                  console.error('Image failed to load:', logoUrl, e)
+                }}
               />
             </div>
           )
