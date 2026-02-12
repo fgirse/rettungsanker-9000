@@ -35,30 +35,34 @@ export default function AboutClient({ about }: AboutClientProps) {
           <p className="font-sans text-[2.5rem] md:text-[3rem] lg:text-[7.0rem] font-extrabold text-yellow-500 text-center">
             {about.title_about}
           </p>
-          {about.image__title_about && typeof about.image__title_about !== 'string' && (
-            <div className="w-36 h-36 md:w-[20vw] lg:w[20vh]">
-              <Image
-                src={about.image__title_about.url || ''}
-                height={320}
-                width={230}
-                alt={about.image__title_about.alt || 'Leuchtturm'}
-                className="shape-lighthouse h-54 w-60"
-              />
-            </div>
-          )}
+          {about.image__title_about &&
+            typeof about.image__title_about !== 'string' &&
+            about.image__title_about.url && (
+              <div className="w-36 h-36 md:w-[20vw] lg:w[20vh]">
+                <Image
+                  src={about.image__title_about.url}
+                  height={320}
+                  width={230}
+                  alt={about.image__title_about.alt || 'Leuchtturm'}
+                  className="shape-lighthouse h-54 w-60"
+                  unoptimized={about.image__title_about.url.endsWith('.svg')}
+                />
+              </div>
+            )}
 
           <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:leading-12 lg:text-[3.0rem] font-sans text-justify">
             <RichText data={about.content_about} />
           </div>
 
-          {about.image_about && typeof about.image_about !== 'string' && (
+          {about.image_about && typeof about.image_about !== 'string' && about.image_about.url && (
             <div className="flex flex-row justify-center items-center gap-x-5">
               <Image
-                src={about.image_about.url || ''}
+                src={about.image_about.url}
                 height={80}
                 width={60}
                 alt={about.image_about.alt || 'Portrait Michael Schreck'}
                 className="mt-5 rounded-full portraitMick"
+                unoptimized={about.image_about.url.endsWith('.svg')}
               />
               <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem]">
                 Michael Schreck <br />
