@@ -7,7 +7,7 @@ import { useEffect, useState } from 'react'
 import type { Media } from '@/payload-types'
 import LogoFlens from '../../public/Assets/Svg/LogoFlens.svg'
 import LogoNeu from '../../public/Assets/Img/LogoNeu.png'
-import LogoAstra from '../../public/Assets/Svg/Astra_Logo.svg'
+import LogoAstra from '../../public/Assets/Svg/AstraLogo.svg'
 
 interface Partner {
   name?: string
@@ -53,9 +53,13 @@ export default function MarqueeCooperateComp() {
   if (!mounted || isLoading) {
     return (
       <div className="w-full overflow-hidden flex flex-col items-center">
-        <div className="py-8 opacity-0">
-          <div style={{ width: 240, height: 80 }} />
-        </div>
+        <Marquee fade={true}>
+          <section className="mt-[64vh] md:mt-[40vh] lg:mt-[19vh] flex items-center justify-center opacity-0">
+            <div className="mr-36 py-32">
+              <div style={{ width: 150, height: 80 }} />
+            </div>
+          </section>
+        </Marquee>
       </div>
     )
   }
@@ -79,6 +83,7 @@ export default function MarqueeCooperateComp() {
     )
   }
 
+  // Render partners from Payload CMS
   return (
     <Marquee fade={true}>
       <section className="mt-[64vh] md:mt-[40vh] lg:mt-[19vh] flex items-center justify-center">
@@ -113,7 +118,7 @@ export default function MarqueeCooperateComp() {
                 style={{ width: 'auto', height: '80px' }}
                 unoptimized={logoUrl.endsWith('.svg')}
                 onError={(e) => {
-                  console.error('Image failed to load:', logoUrl, e)
+                  console.error('Image failed to load for', partner.name, ':', logoUrl, e)
                 }}
               />
             </div>
