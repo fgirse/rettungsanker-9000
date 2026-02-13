@@ -6,7 +6,7 @@ import Marquee from "react-fast-marquee";
 
 const App = () => (
   <Marquee>
-    <div className="flex items-center gap-40">
+    <div className="relative top-[15vh] z-100 flex items-center gap-40">
     <AstraLogo />
     <FlensLogo />
     <LogoNeu />
