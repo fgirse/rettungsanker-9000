@@ -3,7 +3,6 @@ import Image from 'next/image'
 import LogoNeu from '../../public/Assets/Img/LogoAlt.png';
 //import Marquee from '@/components/MarqueeCooperateComp';
 import ProductOfTheMonth from '@/components/productOfTheMonth';
-import Marquee from './Marquee';
 
 function Hero() {
   return (
@@ -18,9 +17,7 @@ function Hero() {
       <div className=' flex flex-col items-center justify-center'>
         <ProductOfTheMonth/>
       </div>
-      <div className=' relative top-[50vh] lg:top-[30vh] z-100 flex items-center gap-40'>
-        <Marquee /> 
-     </div> 
+    
     </section>
   )
 }
