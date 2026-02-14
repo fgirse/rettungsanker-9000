@@ -1,3 +1,4 @@
+/* eslint-disable @typescript-eslint/no-unused-vars */
 'use client'
 
 import Image from 'next/image'
@@ -73,94 +74,6 @@ const LOGO = {
   title: '',
 }
 
-const NAVIGATION: MenuItem[] = [
-  {
-    title: 'Products',
-    links: [
-      {
-        label: 'Company Blog',
-        description: 'Insights & updates',
-        url: '#',
-        icon: {
-          component: FileText,
-          color: '#10b981',
-        },
-      },
-      {
-        label: 'Our Platform',
-        description: 'Empower your work',
-        url: '#',
-        icon: {
-          component: Grid,
-          color: '#6366f1',
-        },
-      },
-    ],
-  },
-  {
-    title: 'Company',
-    links: [
-      {
-        label: 'About Our Team',
-        url: '#',
-        description: 'Our mission & values',
-        icon: {
-          component: Info,
-          color: '#f59e0b',
-        },
-      },
-      {
-        label: 'Help & Support Center',
-        url: '#',
-        description: 'Get quick help',
-        icon: {
-          component: HelpCircle,
-          color: '#3b82f6',
-        },
-      },
-      {
-        label: 'Latest News',
-        url: '#',
-        description: 'Product updates',
-        icon: {
-          component: Bell,
-          color: '#f97316',
-        },
-      },
-    ],
-  },
-  {
-    title: 'Resources',
-    links: [
-      {
-        label: 'Documentation',
-        url: '#',
-        description: 'Guides & references',
-        icon: {
-          component: Book,
-          color: '#8b5cf6',
-        },
-      },
-      {
-        label: 'API Reference',
-        url: '#',
-        description: 'Explore our API',
-        icon: {
-          component: Globe,
-          color: '#ef4444',
-        },
-      },
-    ],
-  },
-  {
-    title: 'Pricing',
-    url: '#',
-  },
-  {
-    title: 'Contact',
-    url: '#',
-  },
-]
 
 const PRIMARY_BUTTON = {
   label: 'Sign up',
@@ -224,7 +137,7 @@ const Navbar9 = ({ className, navigation }: Navbar9Props) => {
                 alt={LOGO.alt}
                 width={150}
                 height={48}
-                className="inline-block size-20 ml-5 invert"
+                className="inline-block size-20 ml-5"
               />
               <span className="hidden text-foreground md:inline-block">{LOGO.title}</span>
             </a>
