@@ -6,6 +6,8 @@ import { getMarqueeLogos } from '@/collections/marquee/queries'
 const MarqueeComponent = async () => {
   const marqueeData = await getMarqueeLogos()
 
+  console.log('Marquee component - data received:', marqueeData)
+
   // Fallback logos if no data from CMS
   const fallbackLogos = [
     { src: '/Assets/Svg/faviconLogoNeu.svg', alt: 'Logo Neu' },
@@ -14,73 +16,62 @@ const MarqueeComponent = async () => {
   ]
 
   // Extract logos from Payload CMS data
-  const logos = []
+  const logos: Array<{ src: string; alt: string }> = []
 
   if (marqueeData?.marquee) {
     const { LogoNeu, LogoAstra, LogoFlens } = marqueeData.marquee
 
-    if (LogoNeu && typeof LogoNeu !== 'string') {
+    console.log('Logo data:', { LogoNeu, LogoAstra, LogoFlens })
+
+    // Helper to extract image URL
+    const getImageUrl = (media: unknown) => {
+      if (!media) return null
+      if (typeof media === 'string') return null
+      const mediaObj = media as { url?: string; filename?: string }
+      return mediaObj.url || (mediaObj.filename ? `/media/${mediaObj.filename}` : null)
+    }
+
+    const logoNeuUrl = getImageUrl(LogoNeu)
+    const logoAstraUrl = getImageUrl(LogoAstra)
+    const logoFlensUrl = getImageUrl(LogoFlens)
+
+    if (logoNeuUrl) {
       logos.push({
-        src: LogoNeu.url || `/media/${LogoNeu.filename}`,
-        alt: LogoNeu.alt || 'Logo Neu',
+        src: logoNeuUrl,
+        alt: (typeof LogoNeu !== 'string' && LogoNeu?.alt) || 'Logo Neu',
       })
     }
 
-    if (LogoAstra && typeof LogoAstra !== 'string') {
+    if (logoAstraUrl) {
       logos.push({
-        src: LogoAstra.url || `/media/${LogoAstra.filename}`,
-        alt: LogoAstra.alt || 'Astra Logo',
+        src: logoAstraUrl,
+        alt: (typeof LogoAstra !== 'string' && LogoAstra?.alt) || 'Astra Logo',
       })
     }
 
-    if (LogoFlens && typeof LogoFlens !== 'string') {
+    if (logoFlensUrl) {
       logos.push({
-        src: LogoFlens.url || `/media/${LogoFlens.filename}`,
-        alt: LogoFlens.alt || 'Flens Logo',
-      })
-    }
-     if (LogoNeu && typeof LogoNeu !== 'string') {
-      logos.push({
-        src: LogoNeu.url || `/media/${LogoNeu.filename}`,
-        alt: LogoNeu.alt || 'Logo Neu',
+        src: logoFlensUrl,
+        alt: (typeof LogoFlens !== 'string' && LogoFlens?.alt) || 'Flens Logo',
       })
     }
 
-    if (LogoAstra && typeof LogoAstra !== 'string') {
-      logos.push({
-        src: LogoAstra.url || `/media/${LogoAstra.filename}`,
-        alt: LogoAstra.alt || 'Astra Logo',
-      })
-    }
-
-    if (LogoFlens && typeof LogoFlens !== 'string') {
-      logos.push({
-        src: LogoFlens.url || `/media/${LogoFlens.filename}`,
-        alt: LogoFlens.alt || 'Flens Logo',
-      })
-    }
+    // Repeat logos for continuous scroll effect
+    const baseLogos = [...logos]
+    logos.push(...baseLogos)
   }
 
   // Use fallback if no CMS data
   const displayLogos = logos.length > 0 ? logos : fallbackLogos
 
+  console.log('Display logos:', displayLogos)
+
   return (
     <Marquee>
       <div className="flex items-center gap-32">
-        {/* Repeat logos twice for seamless scrolling */}
         {displayLogos.map((logo, index) => (
           <Image
             key={`logo-${index}`}
-            src={logo.src}
-            alt={logo.alt}
-            width={144}
-            height={32}
-            className="object-contain"
-          />
-        ))}
-        {displayLogos.map((logo, index) => (
-          <Image
-            key={`logo-repeat-${index}`}
             src={logo.src}
             alt={logo.alt}
             width={144}
