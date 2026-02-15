@@ -11,8 +11,15 @@ export async function getMarqueeLogos() {
       depth: 2,
     })
 
-    console.log('Marquee data fetched:', JSON.stringify(marqueeData.docs[0], null, 2))
-    return marqueeData.docs[0] || null
+    const doc = marqueeData.docs[0]
+    console.log('Raw marquee data:', JSON.stringify(doc, null, 2))
+
+    if (!doc) {
+      console.log('No marquee document found')
+      return null
+    }
+
+    return doc
   } catch (error) {
     console.error('Error fetching marquee logos:', error)
     return null

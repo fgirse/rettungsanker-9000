@@ -2,82 +2,79 @@ import React from 'react'
 import Image from 'next/image'
 import Marquee from 'react-fast-marquee'
 import { getMarqueeLogos } from '@/collections/marquee/queries'
+import type { Media } from '@/payload-types'
 
 const MarqueeComponent = async () => {
   const marqueeData = await getMarqueeLogos()
 
-  console.log('Marquee component - data received:', marqueeData)
+  console.log('=== MARQUEE DEBUG ===')
+  console.log('Full data:', JSON.stringify(marqueeData, null, 2))
 
-  // Fallback logos if no data from CMS
+  // Fallback logos
   const fallbackLogos = [
-    { src: '/Assets/Svg/faviconLogoNeu.svg', alt: 'Logo Neu' },
-    { src: '/Assets/Svg/AstraLogo.svg', alt: 'Astra Logo' },
-    { src: '/Assets/Svg/LogoFlens.svg', alt: 'Flens Logo' },
+    { src: '/Assets/Svg/faviconLogoNeu.svg', alt: 'Logo Neu', width: 144, height: 32 },
+    { src: '/Assets/Svg/AstraLogo.svg', alt: 'Astra Logo', width: 144, height: 32 },
+    { src: '/Assets/Svg/LogoFlens.svg', alt: 'Flens Logo', width: 144, height: 32 },
   ]
 
-  // Extract logos from Payload CMS data
-  const logos: Array<{ src: string; alt: string }> = []
+  let displayLogos = [...fallbackLogos]
 
+  // Extract logos from CMS if available
   if (marqueeData?.marquee) {
     const { LogoNeu, LogoAstra, LogoFlens } = marqueeData.marquee
+    const cmsLogos = []
 
-    console.log('Logo data:', { LogoNeu, LogoAstra, LogoFlens })
+    const extractMedia = (media: string | Media | null | undefined, defaultAlt: string) => {
+      if (!media || typeof media === 'string') return null
 
-    // Helper to extract image URL
-    const getImageUrl = (media: unknown) => {
-      if (!media) return null
-      if (typeof media === 'string') return null
-      const mediaObj = media as { url?: string; filename?: string }
-      return mediaObj.url || (mediaObj.filename ? `/media/${mediaObj.filename}` : null)
+      const url = media.url || (media.filename ? `/api/media/file/${media.filename}` : null)
+      if (!url) return null
+
+      return {
+        src: url,
+        alt: media.alt || defaultAlt,
+        width: media.width || 100,
+        height: media.height || 25,
+      }
     }
 
-    const logoNeuUrl = getImageUrl(LogoNeu)
-    const logoAstraUrl = getImageUrl(LogoAstra)
-    const logoFlensUrl = getImageUrl(LogoFlens)
+    const neu = extractMedia(LogoNeu, 'Logo Neu')
+    const astra = extractMedia(LogoAstra, 'Astra Logo')
+    const flens = extractMedia(LogoFlens, 'Flens Logo')
 
-    if (logoNeuUrl) {
-      logos.push({
-        src: logoNeuUrl,
-        alt: (typeof LogoNeu !== 'string' && LogoNeu?.alt) || 'Logo Neu',
-      })
+    if (neu) cmsLogos.push(neu)
+    if (astra) cmsLogos.push(astra)
+    if (flens) cmsLogos.push(flens)
+
+    if (cmsLogos.length > 0) {
+      // Duplicate for smooth scrolling
+      displayLogos = [...cmsLogos, ...cmsLogos]
+      console.log('Using CMS logos:', cmsLogos)
+    } else {
+      console.log('No valid CMS logos found, using fallback')
     }
-
-    if (logoAstraUrl) {
-      logos.push({
-        src: logoAstraUrl,
-        alt: (typeof LogoAstra !== 'string' && LogoAstra?.alt) || 'Astra Logo',
-      })
-    }
-
-    if (logoFlensUrl) {
-      logos.push({
-        src: logoFlensUrl,
-        alt: (typeof LogoFlens !== 'string' && LogoFlens?.alt) || 'Flens Logo',
-      })
-    }
-
-    // Repeat logos for continuous scroll effect
-    const baseLogos = [...logos]
-    logos.push(...baseLogos)
+  } else {
+    console.log('No marquee data found, using fallback')
   }
 
-  // Use fallback if no CMS data
-  const displayLogos = logos.length > 0 ? logos : fallbackLogos
-
-  console.log('Display logos:', displayLogos)
-
   return (
-    <Marquee>
+    <Marquee speed={50} gradient={false}>
       <div className="flex items-center gap-32">
         {displayLogos.map((logo, index) => (
-          <Image
+          <div
             key={`logo-${index}`}
-            src={logo.src}
-            alt={logo.alt}
-            width={144}
-            height={32}
-            className="object-contain"
-          />
+            className="relative"
+            style={{ width: logo.width, height: logo.height }}
+          >
+            <Image
+              src={logo.src}
+              alt={logo.alt}
+              width={logo.width}
+              height={logo.height}
+              className="object-contain"
+              unoptimized={logo.src.endsWith('.svg')}
+            />
+          </div>
         ))}
       </div>
     </Marquee>
