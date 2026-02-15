@@ -2,10 +2,11 @@
 
 import { motion } from "framer-motion";
 import Image from "next/image";
-import styles from "@/styles"
+import styles from "@/styles";
 import { fadeIn, staggerContainer } from "../utils/motion";
 import { TypingText } from "./CustomTexts";
 import Lighthouse from "../../public/Assets/Img/lighthouse3.png";
+import PortraitMick from "../../public/Assets/Img/portraitmick.png";
 import { RichText } from '@payloadcms/richtext-lexical/react';
 
 export default function AboutClient({ about }) {
@@ -43,19 +44,19 @@ export default function AboutClient({ about }) {
               className="shape-lighthouse h-54 w-60" />
           </div>
 
-          <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:text-[3.0rem] font-sans">
+          <div className="w-[90vw] -mt-12 text-[1rem] md:text-[1.66rem] px-5 text-gray-300  lg:text-[3.0rem] lg:leading-12 font-sans">
             <RichText data={about.content_about} />
           </div>
 
           <div className="flex flex-row justify-center items-center gap-x-5">
             <Image
-              src="/Assets/Img/portraitmick.png"
+              src={PortraitMick}
               height="80"
               width="60"
               float="left"
               alt="Portrait"
               className=" mt-5 rounded-full portraitMick" />
-            <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem]">
+            <p className=" font-sans text-gray-300 text-[1.2rem] md:text-[1.66rem] lg:text-[3.00rem] lg:leading-12">
 
               Michael Schreck <br />und<br /> das Team des Rettungsankers
             </p>
